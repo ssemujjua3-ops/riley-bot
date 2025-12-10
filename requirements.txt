@@ -1,0 +1,12 @@
+flask
+gunicorn
+loguru
+numpy
+scikit-learn
+requests
+beautifulsoup4
+PyPDF2
+# Mandatory for Pocket Option connectivity:
+pocketoptionapi-async
+# For Technical Analysis (optional but recommended for indicators.py):
+ta
