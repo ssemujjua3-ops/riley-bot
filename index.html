@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PocketBot Trading Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PocketBot Dashboard</h1>
+            <div class="status-bar">
+                <span id="bot-status" class="status-indicator status-off">Bot: Stopped</span>
+                <span id="conn-status" class="status-indicator status-off">Connection: Disconnected</span>
+                <span id="mode-status" class="status-indicator status-sim">Mode: Simulation</span>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            <div class="control-panel panel">
+                <h2>Control Center</h2>
+                <div class="control-buttons">
+                    <button id="btn-start" class="btn btn-primary">Start Bot</button>
+                    <button id="btn-stop" class="btn btn-danger">Stop Bot</button>
+                    <button id="btn-trade" class="btn btn-success">Start Trading</button>
+                    <button id="btn-stop-trade" class="btn btn-warning">Stop Trading</button>
+                </div>
+                <div class="control-buttons mt-10">
+                    <button id="btn-show-tournaments" class="btn btn-info">Tournaments</button>
+                </div>
+
+                <div class="settings-group">
+                    <label for="asset-select">Asset:</label>
+                    <select id="asset-select">
+                        <option value="EURUSD_otc">EUR/USD (OTC)</option>
+                        <option value="GBPUSD_otc">GBP/USD (OTC)</option>
+                    </select>
+                </div>
+
+                <div class="settings-group">
+                    <label for="timeframe-select">Timeframe (s):</label>
+                    <select id="timeframe-select">
+                        <option value="60">1 Min</option>
+                        <option value="300">5 Min</option>
+                    </select>
+                </div>
+
+                <div class="settings-group">
+                    <label for="confidence-slider">Min Confidence: <span id="confidence-value">75%</span></label>
+                    <input type="range" id="confidence-slider" min="50" max="95" value="75">
+                </div>
+            </div>
+
+            <div class="stats-panel panel">
+                <h2>Account & Trades</h2>
+                <div class="stat-group">Balance: <span id="stat-balance">$0.00</span></div>
+                <div class="stat-group">Total Trades: <span id="stat-total-trades">0</span></div>
+                <div class="stat-group">Total Wins: <span id="stat-total-wins">0</span></div>
+                <div class="stat-group">Win Rate: <span id="stat-win-rate">0.00%</span></div>
+                <div class="stat-group">Pending Trades: <span id="stat-pending-trades">0</span></div>
+            </div>
+
+            <div class="ml-panel panel">
+                <h2>Agent Intelligence</h2>
+                <div class="stat-group">Training Samples: <span id="stat-training-samples">0</span></div>
+                <div class="stat-group">Agent Win Rate: <span id="stat-agent-win-rate">0.00%</span></div>
+                <div class="stat-group">Learned Concepts: <span id="stat-learned-concepts">0</span></div>
+            </div>
+            
+            <div class="pdf-panel panel">
+                <h2>Knowledge Learner</h2>
+                <input type="file" id="pdf-input" accept=".pdf" style="display: none;">
+                <button id="btn-upload-pdf" class="btn btn-secondary">Upload PDF for Learning</button>
+                <p id="upload-status" class="mt-10"></p>
+            </div>
+
+            <div class="market-panel panel">
+                <h2>Market Analysis</h2>
+                <div class="stat-group">Trend: <span id="market-trend">N/A</span></div>
+                <div class="stat-group">Patterns: <span id="market-patterns">0</span></div>
+                <div class="stat-group">Levels: <span id="market-levels">0 Support, 0 Resistance</span></div>
+                <div id="market-data-container" class="scrollable">
+                    </div>
+            </div>
+
+            <div class="trades-panel panel">
+                <h2>Recent Trades</h2>
+                <table class="trades-list">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Asset</th>
+                            <th>Amount</th>
+                            <th>Direction</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trades-body">
+                        </tbody>
+                </table>
+            </div>
+
+            <div class="chart-panel panel">
+                <h2>Current Market: <span id="chart-asset">EURUSD_otc</span> (<span id="chart-timeframe">1 Min</span>)</h2>
+                <div id="market-chart"></div>
+            </div>
+        </div>
+
+        <footer>PocketBot Trading System | Automated Tournament Trader v1.0</footer>
+    </div>
+
+    <div id="tournament-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Active Free Tournaments</h2>
+            <p id="tournament-status-message"></p>
+            <table class="tournament-table">
+                <thead>
+                    <tr>
+                        <th>Tournament Name</th>
+                        <th>Prize Pool</th>
+                        <th>Participants</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tournament-list-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
